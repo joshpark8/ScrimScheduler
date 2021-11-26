@@ -13,23 +13,15 @@ async def on_ready():
     print('login successful')
 
 @bot.event
-async def on_reaction_add(context, reaction, user):
-    embed = reaction.embeds[0]
-    emoji = reaction.emoji
+async def on_reaction_add(reaction, user):
+    
+    print(f"---------------- TESTING ---------------- \n REACTION: {reaction}\n USER: {user}\n ----------------------------------------")
+    # emoji = str(reaction)
+    channel = reaction.message.channel
+    await channel.send(f'{user.mention} reacted with {reaction}')
 
-    if user.bot:
-        return
-
-    if emoji == "emoji 1":
-        fixed_channel = bot.get_channel()
-        await fixed_channel.send(embed=embed)
-    elif emoji == "emoji 2":
-        #do stuff
-        await context.send('@park#0001 reacted with emoji 2')
-    elif emoji == "emoji 3":
-        #do stuff
-        pass
-    else:
-        pass
+@bot.command()
+async def test(context):
+    await context.send("test")
 
 bot.run(os.getenv('ScrimBotKey'))
