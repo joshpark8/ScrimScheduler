@@ -28,6 +28,7 @@ async def on_reaction_add(reaction, user):
     channel = reaction.message.channel
     if checkReactions(reactionCount):
         await channel.send(f'{park.mention} You have 6 reactions! Time to book a scrim :)')
+        reactionCount = 0
 
 @bot.event
 async def on_raw_reaction_remove(payload):
@@ -38,8 +39,12 @@ async def on_raw_reaction_remove(payload):
     # user = await bot.fetch_user(payload.user_id)
     # await channel.send(f'{user.mention} unreacted with {payload.emoji}')
 
+# @bot.command()
+# async def test(context):
+#     await context.send("test")
+
 @bot.command()
-async def test(context):
-    await context.send("test")
+async def scrim(context, role):
+    await context.send(role + " react for scrim")
 
 bot.run(os.getenv('ScrimBotKey'))
