@@ -20,25 +20,26 @@ async def on_ready():
     print('login successful')
 
 @bot.command()
-async def scrim(context, role, user):
-    await context.send(role + " react for scrim" + user.mention)
+async def scrim(context, role):
+    await context.send(role + " react for scrim")
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    global reactionCount 
-    reactionCount += 1
+    # global reactionCount 
+    # reactionCount += 1
+    # print(reactionCount)
     channel = reaction.message.channel
-    if checkReactions(reactionCount):
-        await channel.send(f'{user.mention} You have 6 reactions! Time to book a scrim :)')
-        reactionCount = 0
+    if len(reaction.message.reactions) == 6:
+        await channel.send("6 reactions")
 
-@bot.event
-async def on_raw_reaction_remove(payload):
-    global park
-    global reactionCount
-    reactionCount -= 1
-    if reactionCount < 0:
-        reactionCount = 0
+# @bot.event
+# async def on_raw_reaction_remove(payload):
+#     global reactionCount
+#     reactionCount -= 1
+#     if reactionCount < 0:
+#         reactionCount = 0
+    # print(reactionCount)
+
     # channel = await bot.fetch_channel(payload.channel_id)
     # user = await bot.fetch_user(payload.user_id)
     # await channel.send(f'{user.mention} unreacted with {payload.emoji}')
