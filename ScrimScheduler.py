@@ -9,12 +9,11 @@ reactionCount = 0
 bot = commands.Bot(command_prefix = '!')
 bot.remove_command('help')
 
-def checkReactions(reactionCount):
+def fullTeam(reactionCount):
     if reactionCount >= 6:
         return(True)
     else:
         return(False)
-
 
 @bot.event
 async def on_ready():
@@ -22,16 +21,15 @@ async def on_ready():
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    park = await bot.fetch_user("397179931223785484")
+    park = 397179931223785484
     global reactionCount 
     reactionCount += 1
     channel = reaction.message.channel
-    if checkReactions(reactionCount):
-        await channel.send(f'{park.mention} You have 6 reactions! Time to book a scrim :)')
+    if reactionCount >= 6:
+        await channel.send(f'@{park} You have 6 reactions! Time to book a scrim :)')
 
 @bot.event
 async def on_raw_reaction_remove(payload):
-    global park
     global reactionCount
     reactionCount -= 1
     # channel = await bot.fetch_channel(payload.channel_id)
@@ -40,6 +38,6 @@ async def on_raw_reaction_remove(payload):
 
 @bot.command()
 async def test(context):
-    await context.send("test")
+    await context.send("@everyone test")
 
 bot.run(os.getenv('ScrimBotKey'))
