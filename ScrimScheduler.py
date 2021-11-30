@@ -1,6 +1,5 @@
 import discord
 import os
-# from discord.ext.commands.bot import AutoShardedBot
 import requests
 from pathlib import Path
 
