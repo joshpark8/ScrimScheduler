@@ -31,6 +31,6 @@ async def on_reaction_add(reaction, user):
         reacts.add(user)
         print(reacts)
     if len(reacts) == 6:
-        await channel.send(author.mention)
+        await channel.send(author.mention + " 6 reactions! Scrim time :)")
 
 bot.run(os.getenv('ScrimBotKey'))
