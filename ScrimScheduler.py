@@ -5,8 +5,6 @@ from pathlib import Path
 
 from discord.ext import commands
 
-reacts = set()
-count = 0
 author = ""
 bot = commands.Bot(command_prefix = '!')
 bot.remove_command('help')
@@ -17,20 +15,18 @@ async def on_ready():
 
 @bot.command()
 async def scrim(context, role):
-    global author
     await context.send(role + " react for scrim")
     author = context.author
 
 @bot.event
 async def on_reaction_add(reaction, user):
+    reacts = set()
     global author
-    global count
-    global reacts
     channel = reaction.message.channel
     async for user in reaction.users():
         reacts.add(user)
         print(reacts)
-    if len(reacts) == 6:
+    if len(reacts) == 2:
         await channel.send(author.mention + " 6 reactions! Scrim time :)")
 
 bot.run(os.getenv('ScrimBotKey'))
