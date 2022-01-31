@@ -29,4 +29,12 @@ async def on_reaction_add(reaction, user):
     if len(reacts) == 2:
         await channel.send(author.mention + " 6 reactions! Scrim time :)")
 
+@bot.command()
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member, *, reason=None):
+    if reason==None:
+      reason=" no reason provided"
+    await ctx.guild.kick(member)
+    await ctx.send(f'User {member.mention} has been kicked for {reason}')
+
 bot.run(os.getenv('ScrimBotKey'))
